@@ -22,7 +22,7 @@
       </div>
 
 
-        <%@tweets.each_with_index do |tweet, i|%>
+        <%@tweets.reverse.each do |tweet|%>
           <br>
           <div class="row">
             <div class="col-md-2"></div>
@@ -35,8 +35,8 @@
                 </div>
                 <div class="right-allign">
                   <form action="/delete-msg" method="POST" id="form">
-                    <input type="hidden" name="index" value=<%=i%>/> 
-                    <a onclick="document.getElementById('form').submit();">Delete</a>
+                    <input type="hidden" name="index" value="<%=tweet.id%>"/> 
+                    <a class="pointer" onclick="document.getElementById('form').submit();">Delete</a>
                   </form>
                 </div>
               </div>

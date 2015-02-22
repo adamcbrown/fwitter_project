@@ -9,17 +9,18 @@ class ApplicationController < Sinatra::Base
   end
   
   get '/' do
-    @tweets=Tweet.ALL_MESSAGES
+    @tweets=Tweet.all
     erb :tweets
   end
 
   post '/tweets' do
-    Tweet.new(params[:user], params[:message])
+    tweet=Tweet.new(:user=>params[:user], :message=>params[:message])
+    tweet.save
     redirect('/')
   end
 
   post '/delete-msg' do
-    Tweet.ALL_MESSAGES.delete_at(params[:index].to_i)
+    Tweet.delete(params[:index].to_i)
     redirect('/')
   end
   

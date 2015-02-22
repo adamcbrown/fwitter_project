@@ -24,3 +24,7 @@
 .right-allign{
   text-align: right;
 }
+
+.pointer{
+  cursor: pointer;
+}
