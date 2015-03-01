@@ -1,48 +1,58 @@
-<html>
-  <head>
-    <title>Fwitter</title>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-  </head>
+<div class="container">
+  <div class="row">
+  <div class="col-md-10"></div>
+  <div class="col-md-2">
 
-  <body>
-    <br><br>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-          <div id="input">
-            <form action="/tweets" method="POST">
-              User: <input type="text" name="user">
-              Message: <input type="text" name="message">
-              <input type="submit" class="btn btn-default">
-            </form>
+    <%if @user==nil %>
+      <a href="/login">Login</a>
+    <%else%> 
+      <p>Hello, <%=@user.username%></p>
+
+      <form action="/logout" method="POST" id="logout">
+        <a class="pointer" onclick="document.getElementById('logout').submit();">Logout</a>
+      </form>
+    <%end%>
+  </div>
+  </div>
+
+  <br><br>
+
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <%if @user%>
+        <div id="input">
+          <form action="/tweets" method="POST">
+            Message: <input type="text" name="message">
+            <input type="submit" class="btn btn-default">
+          </form>
+        </div>
+      <%end%>
+    </div>
+  </div>
+
+
+  <%@tweets.reverse.each do |tweet|%>
+    <br>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="tweet">
+          <h1><%="#{tweet.user.username}"%></h1>
+          <br>
+          <div class="tweet-msg">
+            <p><%="#{tweet.message}"%></p>
+          </div>
+          <div class="right-allign">
+            <%if @user==tweet.user%>
+              <form action="/delete-msg" method="POST" id="delete-msg">
+                <input type="hidden" name="index" value="<%=tweet.id%>"/> 
+                <a class="pointer" onclick="document.getElementById('delete-msg').submit();">Delete</a>
+              </form>
+            <%end%>
           </div>
         </div>
       </div>
-
-
-        <%@tweets.reverse.each do |tweet|%>
-          <br>
-          <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-              <div class="tweet">
-                <h1><%="#{tweet.user}"%></h1>
-                <br>
-                <div class="tweet-msg">
-                  <p><%="#{tweet.message}"%></p>
-                </div>
-                <div class="right-allign">
-                  <form action="/delete-msg" method="POST" id="form">
-                    <input type="hidden" name="index" value="<%=tweet.id%>"/> 
-                    <a class="pointer" onclick="document.getElementById('form').submit();">Delete</a>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        <%end%>
-  </body>
-
-</html>
+    </div>
+  <%end%>
+</div>

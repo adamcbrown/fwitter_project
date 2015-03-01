@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-1"></div>
+
+    <div class="col-md-4">
+      <h2>Login</h2>
+      <div class="input">
+        <form action="/login_user" method="POST">
+          <h3>Email:</h3><br>
+          <input type="text" name="email">
+          <input type="submit" class="btn btn-default">
+        </form>
+
+        <br>
+        <%if @login_fail%>
+          <p class=red>Incorrect E-Mail or Password</p>
+        <%end%>
+      </div>
+    </div>
+  
+
+    <div class="col-md-2"></div>
+
+    <div class="col-md-4">
+        <h2>Create User</h2>
+        <div class="input">
+          <form action="/create_user" method="POST">
+            <h3>Username:</h3><br>
+            <input type="text" name="username"><br><br>
+            <h3>Email:</h3><br>
+            <input type="text" name="email">
+            <input type="submit" class="btn btn-default">
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
